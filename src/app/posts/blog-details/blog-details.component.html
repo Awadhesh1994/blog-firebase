@@ -1,0 +1,135 @@
+<ng-container *ngIf="post">
+  <div [hidden]="!editByUser">
+    <div class="container">
+      <div class="example-container">
+        <div>
+          <div class="card-body text-center">
+            <h3 class="card-title h3-heading">Hi, Blogger</h3>
+            <p class="card-text">
+              this is place where you can post your blog and your can share knowledge<br /> Ever wish you could get the
+              Cliff
+              Notes for writing popular posts? You know, just go straight to what works, and <br />forget everything
+              else?
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Enter Title</label>
+            <input type="email" class="form-control" placeholder="enter title" [(ngModel)]="post.title">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Enter Category</label>
+            <input type="email" class="form-control" placeholder="enter category" [(ngModel)]="post.category">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Enter Starting Content</label>
+            <input type="email" class="form-control" placeholder="enter category" [(ngModel)]="post.lesscontant">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Enter Content</label>
+            <!-- <app-ngx-editor [config]="editorConfig" [spellcheck]="true" [(ngModel)]="content"></app-ngx-editor> -->
+            <ck-editor [spellcheck]="true" [(ngModel)]="post.content" config.skin='kama' language="en" [fullPage]="true"></ck-editor>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Upload Image</label>
+            <input type="file" name="file" id="file" class="form-control" (change)="imageUpload($event)">
+            <div [hidden]="!uploadPercentage">
+              <mat-progress-bar mode="determinate" value="{{uploadPercentage | async}}"></mat-progress-bar>
+            </div>
+            <div [hidden]="image">
+              <img [src]="post.image || '//:0'" style="width: 100%;">
+            </div>
+          </div>
+          <div class="form-group">
+          </div>
+          <div class="form-group text-center">
+            <button mat-raised-button color="warn" (click)="updatePostByUser()">update</button>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+  <div [hidden]="editByUser">
+    <div id="banner" style="background-position: center 50%;" [ngStyle]="{'background-image': 'url(' + post.image + ')'}">
+      <a class="banner-cover"></a>
+      <div id="banner-inner">
+        <a class="banner-cover"></a>
+        <div class="banner-container container" style="opacity: 1;">
+          <a>
+            <h1 class="page-title">{{post.title}}</h1>
+          </a>
+          <div class="meta">
+            <img class="author-thumb" src="{{post.userProfileImage}}">
+            <div class="author-text">
+              <span class="name">{{post.author}}</span>
+              <span class="tags post-tag"> {{post.category}}
+                <a></a>
+                <a href="/blog/tag/technology"></a>
+              </span>
+            </div>
+          </div>
+          <div class="meta meta-date">
+            Published on {{post.published.toDate() | date: 'fullDate'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="article-list">
+      <main class="page-container" role="main">
+        <div id="page-banner"></div>
+        <div class="page-content">
+          <div class="selectionShareable container-new" id="page-main">
+            <div class="col-lg-6 col-md-6">
+                <div class="content">
+                    <div class="card">
+                        <div class="firstinfo"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" />
+                            <div class="profileinfo">
+                                <h1>John Doe</h1>
+                                <h3>Swift developer</h3>
+                                <p class="bio">Lived all my life on the top of mount Fuji, learning the way to be a Ninja Dev.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="badgescard"> 
+                        <span class="fa fa-facebook"></span>
+                        <span class="fa fa-twitter"> </span>
+                        <span class="fa fa-google-plus"></span>
+                        <span class="fa fa-youtube"></span>
+                        <span class="fa fa-dribble"></span>
+                        <span class="fa fa-google"></span>
+                        <span class="fa fa-android"> </span>
+                    </div>
+                </div>
+            </div>
+            <article class="page-article">
+              <section class="content ">
+                <p>
+                  <span style="font-weight: 400;" [innerHTML]="post.content">
+                  </span>
+                </p>
+                <div id="sidebar">
+                  <button mat-icon-button (click)="deleteByUser()" *ngIf="authD.currentUserId === post.authorId">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="editByUser = true" *ngIf="authD.currentUserId === post.authorId">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                <p><img src="{{post.image}}" style="width: 100%;margin-top:10px;" /></p>
+              </section>
+              <section class="post-author-thumb">
+                <img src="{{post.userProfileImage}}" tabindex="0">
+                <div>
+                  <div class="name">{{post.author}}</div>
+                  <div class="tags"> post related to,
+                    <a> {{post.category}}</a>
+                  </div>
+                </div>
+              </section>
+            </article>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</ng-container>

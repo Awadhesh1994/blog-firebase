@@ -1,0 +1,30 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/blog">Tech Blogger</a>
+      <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarResponsive" *ngIf="authFS.afAuth.authState | async as user; else showLogin">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink='/blogDashbourd'><img mat-card-image src="/src/assets/image/logo/addblog.png" class="sanket-inside"></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" (click)="authFS.logOut()"><img mat-card-image src="{{user.photoURL}}" class="sanket-inside"></a>
+            </li>
+        </ul>
+      </div>
+      <ng-template #showLogin>
+        <div class="navbar-collapse collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" (click)="authFS.logIn()"><img mat-card-image src="/src/assets/image/logo/google.png" class="sanket-inside"></a>
+            </li>
+          </ul>
+        </div>
+      </ng-template>
+    </div>
+  </nav>

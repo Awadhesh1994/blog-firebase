@@ -1,0 +1,44 @@
+<app-latest-news></app-latest-news>
+<main id="content">
+  <div class="article-list" *ngFor="let post of datas | async | paginate: { itemsPerPage: 5, currentPage: p }">
+    <article class="post-tile container">
+      <a class="tile-inner">
+        <div class="featured-inner">
+          <a class="post-tag">{{post.category}}</a>
+          <section class="tile-image" [ngStyle]="{ 'background-image': 'url(' + post.image + ')'}"></section>
+          <div class="post-panel">
+            <div class="featured-meta">
+              <span class="featured-date">{{post.published.toDate() | date: 'fullDate'}}</span>&nbsp;&nbsp;
+              <span class="tags" mat-icon-button (click)="delete(post.id)" *ngIf="auth.currentUserId === post.authorId"><mat-icon>delete</mat-icon></span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div class="tile-content">
+        <header class="tile-header">
+          <p class="tile-title">
+            <a href routerLink="{{post.id}}">
+              {{post.title}}
+            </a>
+          </p>
+          <div class="meta">
+            <img class="author-thumb" src="{{post.userProfileImage}}" alt="{{post.title}}">
+            <div class="author-text">
+              <span class="name">published by - {{post.author}}</span>
+              <span class="tags">
+              </span>
+            </div>
+          </div>
+        </header>
+        <a class="post-excerpt">
+          <p [innerHTML]="post.lesscontant"></p>
+        </a>
+        <mat-card-actions>
+        </mat-card-actions>
+      </div>
+    </article>
+  </div>
+  <div class="container text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</main>

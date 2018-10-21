@@ -1,0 +1,24 @@
+<div *ngFor="let p of post | async">
+  <div id="banner" routerLink="{{p.id}}" style="background-position: center 40%;" [ngStyle]="{ 'background-image': 'url(' + p.image + ')'}">
+    <a class="banner-cover" routerLink="{{p.id}}"></a>
+    <div id="banner-inner">
+      <a class="banner-cover" routerLink="{{p.id}}"></a>
+      <div class="banner-container container" style="opacity: 1;">
+        <a routerLink="{{p.id}}">
+          <h1 class="page-title" style="color: #fff;">{{p.title}}</h1>
+        </a>
+        <div class="meta">
+          <img class="author-thumb" src="{{p.userProfileImage}}">
+          <div class="author-text">
+            <span class="name">{{p.author}}</span>
+            <span class="tags post-tag"> {{p.category}}
+              <a ></a>
+              <a href="/blog/tag/technology"></a>
+            </span>
+          </div>
+        </div>
+        <div class="meta meta-date">Published on {{p.published.toDate() | date: 'fullDate'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

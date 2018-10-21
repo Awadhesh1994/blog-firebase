@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="example-container">
+      <div>
+        <div class="card-body text-center">
+          <h3 class="card-title h3-heading">Hi, Blogger</h3>
+          <p class="card-text">
+            this is place where you can post your blog and your can share knowledge<br/>
+            Ever wish you could get the Cliff Notes for writing popular posts? You know, just go straight to what works, and <br/>forget everything else?
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Enter Title</label>
+          <input type="email" class="form-control" placeholder="enter title" [(ngModel)]="title">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Enter Category</label>
+          <input type="email" class="form-control" placeholder="enter category" [(ngModel)]="category">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Enter Starting Content</label>
+          <input type="email" class="form-control" placeholder="enter category" [(ngModel)]="lesscontant">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Enter Content</label>
+            <!-- <app-ngx-editor [config]="editorConfig" [spellcheck]="true" [(ngModel)]="content"></app-ngx-editor> -->
+            <ck-editor [spellcheck]="true" [(ngModel)]="content" config.skin = 'kama' language="en" [fullPage]="true"></ck-editor>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Upload Image</label>
+            <input type="file" name="file" id="file" class="form-control" (change)="imageUpload($event)">
+            <div [hidden]="!uploadPercentage">
+              <mat-progress-bar mode="determinate" value="{{uploadPercentage | async}}"></mat-progress-bar>
+            </div>
+            <div [hidden]="!image" >
+              <img [src]="image || '//:0'" style="width: 100%;">
+            </div>
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group text-center">
+            <button mat-raised-button color="warn" (click)="createPostInfo()" [disabled]="!title || !content || !image || !category">Warn</button>
+        </div>
+    </div>
+    <br/>
+  </div>
